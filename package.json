@@ -1,0 +1,52 @@
+{
+  "name": "dazzer-cli",
+  "version": "0.1.0",
+  "description": "AI-readiness scanner for codebases - detect patterns that confuse AI",
+  "keywords": [
+    "ai",
+    "code-quality",
+    "cli",
+    "scanner",
+    "ast",
+    "ai-readiness",
+    "code-analysis",
+    "developer-tools"
+  ],
+  "homepage": "https://dazzer.io",
+  "bugs": {
+    "url": "https://github.com/dazzer-io/dazzer-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dazzer-io/dazzer-cli-npm.git"
+  },
+  "license": "MIT",
+  "author": "Dazzer <team@dazzer.io>",
+  "main": "run.js",
+  "bin": {
+    "dazzer": "./run.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js",
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64",
+    "ia32"
+  ],
+  "files": [
+    "install.js",
+    "run.js",
+    "README.md",
+    "LICENSE"
+  ]
+}

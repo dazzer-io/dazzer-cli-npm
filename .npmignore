@@ -1,0 +1,22 @@
+# Development files
+.gitignore
+.github/
+.git/
+
+# Test files
+test/
+*.test.js
+
+# Documentation source
+docs/
+
+# Downloaded binaries (will be downloaded during install)
+bin/
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+
+# Memory bank (development context)
+memory-bank/
