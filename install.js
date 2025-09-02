@@ -179,29 +179,35 @@ async function install() {
     const arch = getArchitecture();
     console.log(`Platform: ${platform}-${arch}`);
 
-    // Get version
+    // Get version (for analytics only)
     const version = await getLatestVersion();
     console.log(`Version: ${version}`);
 
-    // Construct download URL
+    // Determine source and target binary paths
     const extension = platform === 'windows' ? '.exe' : '';
-    const binaryUrl = `${GCS_BASE_URL}/v${version}/dazzer-${platform}-${arch}${extension}`;
-    console.log(`Downloading from: ${binaryUrl}`);
+    const sourceBinaryName = `dazzer-${platform}-${arch}${extension}`;
+    const sourceBinaryPath = path.join(__dirname, 'bin', sourceBinaryName);
+    const targetBinaryPath = path.join(__dirname, 'bin', BINARY_NAME);
 
-    // Create bin directory
-    const binDir = path.join(__dirname, 'bin');
-    if (!fs.existsSync(binDir)) {
-      fs.mkdirSync(binDir, { recursive: true });
+    // Check if platform-specific binary exists
+    if (!fs.existsSync(sourceBinaryPath)) {
+      throw new Error(`Binary not found for ${platform}-${arch}. Supported platforms: darwin-amd64, darwin-arm64, linux-amd64, linux-arm64, windows-amd64`);
     }
 
-    // Download binary
-    const binaryPath = path.join(binDir, BINARY_NAME);
-    await downloadFile(binaryUrl, binaryPath);
-    console.log('Download complete');
+    console.log(`Using bundled binary: ${sourceBinaryName}`);
+
+    // Copy/rename binary to standard name if needed
+    if (sourceBinaryPath !== targetBinaryPath) {
+      if (fs.existsSync(targetBinaryPath)) {
+        fs.unlinkSync(targetBinaryPath);
+      }
+      fs.copyFileSync(sourceBinaryPath, targetBinaryPath);
+      console.log(`Binary ready: ${BINARY_NAME}`);
+    }
 
     // Make executable on Unix systems
     if (platform !== 'windows') {
-      fs.chmodSync(binaryPath, 0o755);
+      fs.chmodSync(targetBinaryPath, 0o755);
       console.log('Made binary executable');
     }
 
@@ -218,7 +224,7 @@ async function install() {
   } catch (error) {
     console.error('\n❌ Installation failed:', error.message);
     console.error('\nTroubleshooting:');
-    console.error('1. Check your internet connection');
+    console.error('1. Verify your platform is supported (Mac, Linux, Windows on x64/ARM64)');
     console.error('2. Try clearing NPM cache: npm cache clean --force');
     console.error('3. Try installing again: npm install -g dazzer-cli');
     console.error('4. Report issues: https://github.com/dazzer-io/dazzer-cli/issues');

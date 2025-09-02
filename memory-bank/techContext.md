@@ -27,10 +27,16 @@
 
 ## Binary Distribution
 - **Host**: Google Cloud Storage
-- **Bucket**: `dazzer-asts-prod`
+- **Bucket**: `dazzer-asts-prod` ⚠️ **PERMISSIONS ISSUE**
 - **Path**: `/binaries/v{version}/dazzer-{platform}-{arch}`
 - **Size**: ~10-15MB per binary
 - **Format**: Single executable, no dependencies
+- **Status**: ❌ HTTP 403 - Anonymous access denied
+
+### CRITICAL INFRASTRUCTURE ISSUE
+**Problem**: GCS bucket not configured for public read access
+**Error**: `Anonymous caller does not have storage.objects.get access`
+**Solution**: `gsutil iam ch allUsers:objectViewer gs://dazzer-asts-prod`
 
 ## API Endpoints
 ```

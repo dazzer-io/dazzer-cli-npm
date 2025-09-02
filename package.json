@@ -1,6 +1,6 @@
 {
   "name": "dazzer-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI-readiness scanner for codebases - detect patterns that confuse AI",
   "keywords": [
     "ai",
@@ -47,6 +47,7 @@
     "install.js",
     "run.js",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "bin/"
   ]
 }
