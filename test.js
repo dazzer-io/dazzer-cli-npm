@@ -38,12 +38,12 @@ try {
 // Test 3: Binary runs
 console.log('3. Checking binary runs...');
 try {
-  const output = execSync(`node "${path.join(__dirname, 'run.js')}" --version`, {
+  const output = execSync(`node "${path.join(__dirname, 'run.js')}" --help`, {
     encoding: 'utf8',
     stdio: 'pipe'
   });
   console.log('   ✅ Binary runs successfully');
-  console.log('   Version output:', output.trim());
+  console.log('   Help output preview:', output.split('\n')[0]);
 } catch (err) {
   console.error('   ❌ Binary failed to run:', err.message);
   process.exit(1);

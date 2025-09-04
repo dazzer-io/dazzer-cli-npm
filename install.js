@@ -11,7 +11,7 @@ const https = require('https');
 const { URL } = require('url');
 
 // Configuration
-const GCS_BASE_URL = 'https://storage.googleapis.com/dazzer-asts-prod/binaries';
+const GITHUB_RELEASE_URL = 'https://github.com/dazzer-io/dazzer-cli/releases/download/v0.2.1';
 const API_BASE_URL = 'https://api.dazzer.io';
 const BINARY_NAME = process.platform === 'win32' ? 'dazzer.exe' : 'dazzer';
 
